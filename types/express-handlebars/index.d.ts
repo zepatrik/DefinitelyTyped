@@ -3,6 +3,9 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+import handlebars, { compile } from 'handlebars'
+
+type CompileOptions = typeof compile extends (_: any, CO: infer CO) => any ? Exclude<CO, undefined> : never
 
 interface PartialTemplateOptions {
     cache?: boolean;
@@ -17,13 +20,13 @@ interface RenderOptions {
 }
 
 interface ExphbsOptions {
-    handlebars?: any;
+    handlebars?: handlebars;
     extname?: string;
     layoutsDir?: string;
-    partialsDir?: any;
+    partialsDir?: string;
     defaultLayout?: string;
-    helpers?: any;
-    compilerOptions?: any;
+    helpers?: { [name: string]: Function};
+    compilerOptions?: CompileOptions;
 }
 
 interface ExphbsCallback {
